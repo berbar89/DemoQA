@@ -27,6 +27,7 @@ public class TestDemoQa {
     @Test
     public void testDemo(){
         HomePage hp=new HomePage(driver);
+
         hp.navigateToElementPage()
                 .verifyOnElementsPage()
                 .navigateToWebTablesPage()
