@@ -14,7 +14,6 @@ import java.time.Duration;
 public class HomePage {
     WebDriver driver;
     public static final long wait_duration= 10000;
-    //By elementID= By.xpath("//h5[text()='Elements']");
    @FindBy(xpath = "//h5[text()='Elements']")
     WebElement buttonElement;
 
@@ -28,7 +27,7 @@ public class HomePage {
     public ElementPage navigateToElementPage(){
         //WebDriverWait waitbest= new WebDriverWait(driver, Duration.ofSeconds(10));
        // WebElement liElement = waitbest.until(ExpectedConditions.visibilityOfElementLocated(elementID));
-        log.info("Click on the Element button");
+        log.info("Navigated to the Elements page");
         buttonElement.click();
         return new ElementPage(driver);
     }

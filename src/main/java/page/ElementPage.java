@@ -9,58 +9,46 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
 @Log4j2
 public class ElementPage {
     WebDriver driver;
 
     @FindBy(xpath = "//span[text()='Web Tables']")
-            WebElement buttonwebTables;
-    @FindBy(xpath = "//div[@class='rt-resizable-header-content' and text()='Salary']")
-            WebElement buttonSalary;
-    By deleteButton = By.xpath("//div[@class='action-buttons']/span[@title='Delete']");
+    WebElement buttonwebTables;
+    @FindBy(className = "main-header")
+    WebElement pageTitle;
+    //private By pageTitle = By.className("main-header");
 
-    By title= By.cssSelector(".main-header");
-
-    public ElementPage(WebDriver driver){
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
+    public ElementPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
-    public ElementPage navigateToWebTablesPage() {
+
+    public ElementPage verifyOnElementsPage() {
+        String expectedTitle = "Elements";
+        String actualTitle = pageTitle.getText();
+        if (!actualTitle.equals(expectedTitle)) {
+            log.error("You are not on the Elements page.");
+            throw new IllegalStateException("You are not on the Elements page.");
+        } else
+            log.info("You are on the Elements page.");
+
+        return this;
+    }
+
+    public WebTablesPage navigateToWebTablesPage() {
         // Créez un objet JavascriptExecutor
         JavascriptExecutor js = (JavascriptExecutor) driver;
         // défiler vers le bas de la page
         //  spécifier la distance en pixels (par exemple, 500)
         js.executeScript("window.scrollBy(0, 500);");
         //cliquer sur web table
-        log.info("Click on Web Tables button");
+        log.info("Navigated to the WebTables page");
         buttonwebTables.click();
-
-      return this;
-       }
-   public ElementPage ortBySalaryDescending(){
-        // Créez un objet JavascriptExecutor
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, 500);");
-        log.info("Click on salary button");
-        buttonSalary.click();
-
-        // Attendre un court instant pour la mise à jour du tri
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-      return this;
+        return new WebTablesPage(driver);
     }
 
-    public ElementPage deleteLastRow() {
-        List<WebElement> deleteButtons = driver.findElements(deleteButton);
-        if (!deleteButtons.isEmpty()) {
-            deleteButtons.get(deleteButtons.size() - 1).click();
-        }
 
-        return this;
-        }
-
-    }
+}
 

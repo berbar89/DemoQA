@@ -28,6 +28,7 @@ public class TestDemoQa {
     public void testDemo(){
         HomePage hp=new HomePage(driver);
         hp.navigateToElementPage()
+                .verifyOnElementsPage()
                 .navigateToWebTablesPage()
                 .ortBySalaryDescending()
                 .deleteLastRow();
