@@ -10,23 +10,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
 @Log4j2
 public class HomePage {
     WebDriver driver;
-    public static final long wait_duration= 10000;
-   @FindBy(xpath = "//h5[text()='Elements']")
+    WebDriverWait wait;
+    @FindBy(xpath = "//h5[text()='Elements']")
     WebElement buttonElement;
 
-    public HomePage(WebDriver driver){
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        wait= new WebDriverWait(driver, Duration.ofSeconds(3));
+        PageFactory.initElements(driver, this);
     }
 
 
-
-    public ElementPage navigateToElementPage(){
-        //WebDriverWait waitbest= new WebDriverWait(driver, Duration.ofSeconds(10));
-       // WebElement liElement = waitbest.until(ExpectedConditions.visibilityOfElementLocated(elementID));
+    public ElementPage navigateToElementPage() {
+        wait.until(ExpectedConditions.visibilityOf(buttonElement));
         log.info("Navigated to the Elements page");
         buttonElement.click();
         return new ElementPage(driver);

@@ -10,11 +10,12 @@ import page.HomePage;
 public class TestDemoQa {
     WebDriver driver;
 
-    private static final String URL= "https://demoqa.com/";
+    private static final String URL = "https://demoqa.com/";
+
     @BeforeMethod
-    public void setUp(){
-        System.setProperty("webdriver.gecko.driver","src/main/resources/geckodriver.exe");
-        driver= new FirefoxDriver();
+    public void setUp() {
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.get(URL);
         // Créez un objet JavascriptExecutor
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -25,8 +26,8 @@ public class TestDemoQa {
     }
 
     @Test
-    public void testDemo(){
-        HomePage hp=new HomePage(driver);
+    public void testDemo() {
+        HomePage hp = new HomePage(driver);
 
         hp.navigateToElementPage()
                 .verifyOnElementsPage()
@@ -37,8 +38,8 @@ public class TestDemoQa {
 
     }
 
-   @AfterMethod
-    public void Teardown(){
+    @AfterMethod
+    public void Teardown() {
         //log.info("Test terminé");
         driver.quit();
     }
