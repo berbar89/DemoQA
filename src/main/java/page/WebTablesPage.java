@@ -20,10 +20,12 @@ public class WebTablesPage {
     WebElement buttonSalary;
     WebDriverWait wait;
     By deleteButton = By.xpath("//div[@class='action-buttons']/span[@title='Delete']");
+
     public WebTablesPage(WebDriver driver) {
         this.driver = driver;
         wait= new WebDriverWait(driver, Duration.ofSeconds(3));
         PageFactory.initElements(driver, this);
+
     }
 
     public WebTablesPage ortBySalaryDescending() {
@@ -55,4 +57,9 @@ public class WebTablesPage {
 
         return this;
     }
+    public int getTableSize() {
+        List<WebElement> currentRows = driver.findElements(By.xpath("//div[@class='action-buttons']/span[@title='Delete']"));
+        return currentRows.size();
+    }
+
 }
