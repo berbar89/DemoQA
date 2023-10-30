@@ -19,17 +19,18 @@ public class WebTablesPage {
     @FindBy(xpath = "//div[@class='rt-resizable-header-content' and text()='Salary']")
     WebElement buttonSalary;
     WebDriverWait wait;
-    By deleteButton = By.xpath("//div[@class='action-buttons']/span[@title='Delete']");
+    @FindBy(xpath = "//div[@class='action-buttons']/span[@title='Delete']")
+    List<WebElement> deleteButtons;
+
 
     public WebTablesPage(WebDriver driver) {
         this.driver = driver;
-        wait= new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         PageFactory.initElements(driver, this);
 
     }
 
     public WebTablesPage ortBySalaryDescending() {
-        // Créez un objet JavascriptExecutor
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 400);");
         wait.until(ExpectedConditions.elementToBeClickable(buttonSalary));
@@ -46,8 +47,6 @@ public class WebTablesPage {
     }
 
     public WebTablesPage deleteLastRow() {
-        List<WebElement> deleteButtons = driver.findElements(deleteButton);
-        // Créez un objet JavascriptExecutor
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 500);");
         if (!deleteButtons.isEmpty()) {
@@ -57,9 +56,10 @@ public class WebTablesPage {
 
         return this;
     }
+
     public int getTableSize() {
-        List<WebElement> currentRows = driver.findElements(By.xpath("//div[@class='action-buttons']/span[@title='Delete']"));
-        return currentRows.size();
+        //List<WebElement> currentRows = driver.findElements(By.xpath("//div[@class='action-buttons']/span[@title='Delete']"));
+        return deleteButtons.size();
     }
 
 }

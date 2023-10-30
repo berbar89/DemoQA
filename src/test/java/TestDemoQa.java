@@ -26,6 +26,7 @@ public class TestDemoQa {
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
+        log.info("Navigated to the URL: https://demoqa.com/");
         driver.get(URL);
         // Créez un objet JavascriptExecutor
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -55,7 +56,7 @@ public class TestDemoQa {
 
     @AfterMethod
     public void Teardown() {
-        //log.info("Test terminé");
+        log.info("Finishing test");
         driver.quit();
     }
 
